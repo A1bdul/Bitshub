@@ -1,0 +1,20 @@
+<form method="post" class="subscription">
+    {% csrf_token %}
+
+    <div class="pk-input-group">
+
+        <input type="text"
+               name="newsletter"
+               class="email form-control"
+               placeholder="Enter your email">
+
+        <button class="pk-subscribe-submit"
+                type="submit">
+            Subscribe
+        </button>
+    </div>
+
+    <input type="hidden"
+           name="_wp_http_referer"
+           value="/gearbox/"/>
+</form>
