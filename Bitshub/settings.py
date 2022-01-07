@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'TheHub.apps.ThehubConfig',
     'tinymce',
     'pyuploadcare.dj',
-    'validate_email',
+    'validate_email'
 ]
 
 MIDDLEWARE = [

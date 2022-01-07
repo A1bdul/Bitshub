@@ -5,11 +5,10 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import F
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
 from validate_email import validate_email
-from .forms import CommentForm
+from .forms import *
 from .models import *
 
 
@@ -19,14 +18,14 @@ def home(request):
     is_featured = Article.published.filter(editors_choice='featured').order_by('-id').first()
     featured = Article.published.filter(editors_choice='featured').order_by('-id')[1:3]
     next_features = Article.published.filter(editors_choice='featured').order_by('-id')[3:6]
-    post_count = Article.objects.all().count()
-    top_post = Article.objects.filter().order_by('-views')[:5]
+    post_count = Article.published.all().count()
+    top_post = Article.published.filter().order_by('-views')[:5]
     best_featured = Article.published.filter(editors_choice='trending').order_by('-id')[:2]
     best_picks = Article.published.filter(editors_choice='editor\'s choice').order_by('views')[:3]
     recent_post = Article.published.filter(editors_choice="").order_by('-id')[:12]
     first_recent_post = recent_post.first()
-    popular_tech = Article.objects.filter(editors_choice="next-features", category="reviews").order_by('-views')[:3]
-    popular_coding = Article.objects.filter(editors_choice="next-features", category="Coding").order_by('-views')[:3]
+    popular_tech = Article.published.filter(editors_choice="next-features", category="reviews").order_by('-views')[:3]
+    popular_coding = Article.published.filter(editors_choice="next-features", category="Coding").order_by('-views')[:3]
     the_fifth = post_count - 5
     authored_post = None
     authored_trends = None
@@ -59,19 +58,19 @@ def is_ajax(request):
 
 
 def post_details(request, slug):
-    post = Article.published.get(slug=slug)
+    post = Article.objects.get(slug=slug)
     postid = post.id
     if not Network.objects.filter(post=post).exists():
         Network.objects.create(post=post, )
-    Article.objects.filter(slug=slug).update(views=F('views') + 1)
+    Article.published.filter(slug=slug).update(views=F('views') + 1)
     top_post = Article.published.filter().order_by('-views')[:6]
     comments = Comment.objects.filter(post=post, reply=None).order_by('id')
     next_post = None
     previous_post = None
     if Article.published.filter(id=post.id + 1).exists():
-        next_post = Article.objects.get(id=post.id + 1)
+        next_post = Article.published.get(id=post.id + 1)
     if Article.published.filter(id=post.id - 1).exists():
-        previous_post = Article.objects.get(id=post.id - 1)
+        previous_post = Article.published.get(id=post.id - 1)
     count = 3
     related_post = Article.published.filter(category=post.category).order_by('-id')
     if post in related_post:
@@ -122,9 +121,9 @@ def post_details(request, slug):
 
 
 def category(request, category):
-    if Article.objects.filter(category=category).exists():
-        post = Article.objects.filter(category=category)
-        top_post = Article.objects.filter().order_by('-views')[:5]
+    if Article.published.filter(category=category).exists():
+        post = Article.published.filter(category=category)
+        top_post = Article.published.filter().order_by('-views')[:5]
         authored_post = None
         authored_trends = None
         if request.user.is_authenticated:
@@ -157,8 +156,8 @@ class EmailThread(threading.Thread):
 
 def live_search(request):
     search = json.loads(request.body).get('searchText')
-    searched = Article.objects.filter(title__istartswith=search) | Article.objects.filter(
-        category__istartswith=search) | Article.objects.filter(snippet__istartswith=search)
+    searched = Article.published.filter(title__istartswith=search) | Article.published.filter(
+        category__istartswith=search) | Article.published.filter(snippet__istartswith=search)
     data = searched.values()
     return JsonResponse(list(data), safe=False)
 
@@ -167,7 +166,7 @@ def count_shares(request):
     data = json.loads(request.body)
     post_id = data['Id']
     name = data['name']
-    post = Article.objects.get(id=post_id)
+    post = Article.published.get(id=post_id)
     if name == 'facebook':
         Network.objects.filter(post=post).update(facebook=F('facebook') + 1)
     if name == 'twitter':
@@ -213,3 +212,5 @@ def newsletter(request):
         return JsonResponse({'data': 'Email successfully added to Newsletter'})
     else:
         return JsonResponse({'data': 'Email already available in Newsletter'})
+
+
