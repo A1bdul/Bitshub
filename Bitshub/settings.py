@@ -48,7 +48,11 @@ INSTALLED_APPS = [
     'TheHub.apps.ThehubConfig',
     'tinymce',
     'pyuploadcare.dj',
-    'validate_email'
+    'validate_email',
+    'filebrowser',
+    'grappelli',
+    'cloudinary',
+    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -132,11 +136,18 @@ STATICFILES_DIRS = [
 ]
 
 STATICFILLES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+from filebrowser.sites import site
+site.directory = "uploads/"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST=os.getenv('EMAIL_HOST')
 EMAIL_PORT = 587
@@ -145,27 +156,28 @@ EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
 
 TINYMCE_DEFAULT_CONFIG = {
-
+    'theme':'silver',
+    # 'skin':'dark',
     'height': 360,
     'width': 750,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
-    'plugins': '''
-   textcolor save link image media preview codesample contextmenu
-   table code lists fullscreen insertdatetime nonbreaking
-   contextmenu directionality searchreplace wordcount visualblocks
-   visualchars code fullscreen autolink lists charmap print hr
-   anchor pagebreak
-   ''',
+    'plugins': ''' 
+    toc textcolor save link image media preview codesample contextmenu
+    table code lists fullscreen insertdatetime nonbreaking quickbars
+    contextmenu directionality searchreplace wordcount visualblocks tabfocus 
+    visualchars code fullscreen autolink lists charmap print hr legacyoutput
+    anchor pagebreak imagetools template save searchreplace help directionality fullpage
+    ''',
     'toolbar1': '''
    fullscreen preview bold italic underline | fontselect,
    fontsizeselect | forecolor backcolor | alignleft alignright |
    aligncenter alignjustify | indent outdent | bullist numlist table |
-   | link image media | codesample |
+   | link image media | codesample | template| quickbars| tabfocus | fullpage | toc
    ''',
     'toolbar2': '''
-   visualblocks visualchars |
+   visualblocks visualchars | save| help|
    charmap hr pagebreak nonbreaking anchor | code |
    ''',
     'contextmenu': 'formats | link image',
@@ -173,9 +185,28 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 
+TINYMCE_SPELLCHECKER = True
+
+# TINYMCE_EXTRA_MEDIA = {
+#     'css': {
+#         'all': [
+#
+#         ],
+#     },
+#     'js': [
+# 'wp-content/cache/autoptimize/21/js/autoptimize_219d85f35ad6eb6a8eb0c64beb54fc2b.js'
+#     ],
+# }
+
 UPLOADCARE = {
     'pub_key': os.getenv('pub_key'),
     'secret': os.getenv('secret'),
+}
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+    'API_KEY': os.getenv('API_KEY'),
+    'API_SECRET': os.getenv('API_SECRET'),
 }
 
 django_heroku.settings(locals())

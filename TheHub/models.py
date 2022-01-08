@@ -40,7 +40,7 @@ class Article(models.Model):
     video_id = models.CharField(max_length=20, blank=True)
     slug = models.SlugField(max_length=100, unique=True)
     snippet = models.CharField(max_length=150, blank=True, null=True)
-    publish_date = models.DateTimeField(auto_now_add=True)
+    publish_date = models.DateTimeField(auto_created=True)
     editors_choice = models.CharField(max_length=20, choices=EDITORS_CHOICES, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     views = models.IntegerField(default=0, blank=True)
