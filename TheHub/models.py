@@ -1,3 +1,5 @@
+import html.parser
+import bs4
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -10,21 +12,22 @@ class PublishedManager(models.Manager):
         return super(PublishedManager, self).get_queryset().filter(status="published")
 
 
+def filtered(element):
+    if isinstance(element, bs4.element.Comment):
+        return False
+    elif element.string == '\n':
+        return False
+    return True
+
+
 class Article(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-    EDITORS_CHOICES = (
-        ('editor\'s choice', 'Editor\'s choice'),
-        ('featured', 'Featured'),
-        ('trending', 'Trending'),
-        ('next-features', 'Next-features'),
-    )
-    CATEGORY = (
-        ('reviews', 'Reviews'),
-        ('coding', 'Coding')
-    )
+
+    WPM = 200
+    WORD_LENGTH = 5
 
     objects = models.Manager()
     published = PublishedManager()
@@ -34,17 +37,15 @@ class Article(models.Model):
     title = models.CharField(max_length=250)
     Author = models.ForeignKey(User, related_name='author', on_delete=models.PROTECT)
     body = HTMLField()
-    from pyuploadcare.dj.models import ImageField
-    cover_photo = ImageField(blank=True, null=True)
+    from cloudinary.models import CloudinaryField
+    cover_photo = CloudinaryField(blank=True, null=True)
     cover_video = models.URLField(blank=True)
     video_id = models.CharField(max_length=20, blank=True)
     slug = models.SlugField(max_length=100, unique=True)
     snippet = models.CharField(max_length=150, blank=True, null=True)
-    publish_date = models.DateTimeField(auto_created=True)
-    editors_choice = models.CharField(max_length=20, choices=EDITORS_CHOICES, blank=True)
+    publish_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     views = models.IntegerField(default=0, blank=True)
-    category = models.CharField(max_length=100, choices=CATEGORY, default='reviews')
 
     class Meta:
         verbose_name = 'Article'
@@ -56,6 +57,14 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article_detail', args=[self.slug])
+
+    def estimate_reading_time(self):
+        soup = bs4.BeautifulSoup(self.body, 'html.parser')
+        text = filter(filtered, soup.findAll(text=True))
+        total_words = 0
+        for words in text:
+            total_words += len(words)/self.WORD_LENGTH
+        return int(total_words//self.WPM)
 
 
 class Comment(models.Model):

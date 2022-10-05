@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'TheHub.apps.ThehubConfig',
     'tinymce',
-    'pyuploadcare.dj',
     'validate_email',
     'filebrowser',
     'grappelli',
@@ -168,7 +167,7 @@ TINYMCE_DEFAULT_CONFIG = {
     table code lists fullscreen insertdatetime nonbreaking quickbars
     contextmenu directionality searchreplace wordcount visualblocks tabfocus 
     visualchars code fullscreen autolink lists charmap print hr legacyoutput
-    anchor pagebreak imagetools template save searchreplace help directionality fullpage
+    anchor pagebreak imagetools template save searchreplace help directionality 
     ''',
     'toolbar1': '''
    fullscreen preview bold italic underline | fontselect,
