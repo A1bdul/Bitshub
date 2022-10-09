@@ -17,8 +17,6 @@
     <link rel="preload"
           href="/static/wp-content/plugins/powerkit/assets/fonts/powerkit-icons.woff"
           as="font" type="font/woff" crossorigin>
-
-
     <script src='/static/js/app.js'
             id='jquery-core-js'></script>
 
@@ -29,13 +27,6 @@
           href="/static/wp-content/plugins/advanced-popups/fonts/advanced-popups-icons.woff"
           as="font" type="font/woff" crossorigin>
 
-
-    <noscript>
-        <style>.woocommerce-product-gallery {
-            opacity: 1 !important;
-        }</style>
-    </noscript>
-    <!-- There is no amphtml version available for this URL. -->
 </head>
 
 <body class="home page-template page-template-template-canvas-fullwidth page-template-template-canvas-fullwidth-php page page-id-2817 wp-embed-responsive theme-networker woocommerce-no-js cs-page-layout-disabled cs-navbar-sticky-enabled cs-navbar-smart-enabled cs-sticky-sidebar-enabled cs-stick-to-top"
@@ -100,19 +91,14 @@
                 </div>
             </div>
         </div>
-        <header class="cs-header cs-header-stretch cs-header-three" data-scheme="default">
+      <header class="cs-header cs-header-stretch cs-header-three" data-scheme="default">
             <div class="cs-container">
                 <div class="cs-header__inner cs-header__inner-desktop">
                     <div class="cs-header__col cs-col-left">
-
-                        <div class="cs-logo">
-                            <a class="cs-header__logo cs-logo-default " href="{% url 'home' %}">
-                                Bitshub </a>
-
-                            <a class="cs-header__logo cs-logo-dark " href="{% url 'home' %}">
-                                Bitshub</a>
-                        </div>
-
+                        <div class="cs-logo"><a class="cs-header__logo cs-logo-default "
+                                                href="{% url 'home' %}">Bitshub </a><a
+                                class="cs-header__logo cs-logo-dark " href="{% url 'home' %}">Bitshub
+                        </a></div>
                         {% if user.is_authenticated %}
                             <div class="cs-header__multi-column cs-site-submenu section-heading-default-style-1">
                             <span
@@ -142,7 +128,7 @@
                                                                                        loading='lazy'/> </a></div>
                                                             <div class="pk-author-data">
                                                                 <div class="author-description pk-color-secondary">
-                                                                    <a href="https://fzmovies.net"><strong>#Netflix and
+                                                                    <a href="/www.fzmovies.net"><strong>#Netflix and
                                                                         Chill</strong></a><br>
                                                                     Greatest works take time,If you ever have doubts of
                                                                     what you are doing, be sure to take a timeout and
@@ -197,13 +183,13 @@
                                                                             <div class="cs-entry__inner cs-entry__thumbnail cs-overlay-ratio cs-ratio-square">
                                                                                 <div class="cs-overlay-background cs-overlay-transparent">
                                                                                     <img width="80" height="80"
-                                                                                         src="/static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-80x80/"
+                                                                                         src="{{ post.cover_photo.cdn_url }}-/smart_resize/80x80/"
                                                                                          class="attachment-csco-smaller size-csco-smaller pk-lqip pk-lazyload wp-post-image"
                                                                                          alt="" loading="lazy"
                                                                                          data-pk-sizes="auto"
                                                                                          data-ls-sizes="(max-width: 80px) 100vw, 80px"
-                                                                                         data-pk-src="/static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-80x80/"
-                                                                                         data-pk-srcset="/static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-80x80/ 80w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-150x150/ 150w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-110x110/ 110w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-600x600/ 600w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-100x100/ 100w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-160x160/ 160w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-220x220/ 220w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-200x200/ 200w, /static/wp-content/uploads/sites/21/2020/02/video-gearbox-02-300x300/ 300w"/>
+                                                                                         data-pk-src="{{ post.cover_photo.cdn_url }}-/smart_resize/80x80/"
+                                                                                         data-pk-srcset="{{ post.cover_photo.cdn_url }}-/smart_resize/80x80/ 80w, {{ post.cover_photo.cdn_url }}-/smart_resize/150x150/ 150w, {{ post.cover_photo.cdn_url }}-/smart_resize/110x110/ 110w, {{ post.cover_photo.cdn_url }}-/smart_resize/600x600/ 600w, {{ post.cover_photo.cdn_url }}-/smart_resize/100x100/ 100w, {{ post.cover_photo.cdn_url }}-/smart_resize/160x160/ 160w, {{ post.cover_photo.cdn_url }}-/smart_resize/220x220/ 220w, {{ post.cover_photo.cdn_url }}-/smart_resize/200x200/ 200w, {{ post.cover_photo.cdn_url }}-/smart_resize/300x300/ 300w"/>
                                                                                 </div>
                                                                                 <a class="cs-overlay-link"
                                                                                    href="/static/2020/02/21/finally-a-machine-that-can-finish-your-sentence/"></a>
@@ -211,9 +197,8 @@
                                                                             <div class="cs-entry__inner cs-entry__content">
                                                                                 <h3
                                                                                         class="cs-entry__title"><a
-                                                                                        href="/static/2020/02/21/finally-a-machine-that-can-finish-your-sentence/">Finally,
-                                                                                    a Machine That Can Finish Your
-                                                                                    Sentence</a></h3>
+                                                                                        href="{% url 'article_detail' post.slug %}">{{ post.title|title }}</a>
+                                                                                </h3>
                                                                             </div>
                                                                         </div>
                                                                     </article>
@@ -273,7 +258,7 @@
                                                                                     <div class="cs-entry__post-meta">
                                                                                         <div class="cs-meta-views"><span
                                                                                                 class="cs-meta-icon"><i
-                                                                                                class="cs-icon cs-icon-bar-chart"></i></span>{{ authored_trends.views }}
+                                                                                                class="cs-icon cs-icon-bar-chart"></i></span>{{ authored_trends.views.count }}
                                                                                             view{{ authored_trends.vies|pluralize }}
                                                                                         </div>
                                                                                         <div class="cs-meta-comments"><span
@@ -306,51 +291,35 @@
                         <form role="search" method="get" class="cs-search__nav-form"
                               action="/static/">
                             <div class="cs-search__group">
-                                <button class="cs-search__submit">
-                                    <i class="ri-search-2-line"></i>
-                                </button>
-
+                                <button class="cs-search__submit"><i class="cs-icon cs-icon-search"></i></button>
                                 <input required class="cs-search__input"
-                                       data-swpparentel=".cs-header .cs-search-live-result-container"
-                                       data-swplive="true" type="search" value="" id="search" name="s"
-                                       placeholder="Enter keyword">
-
-                                <button class="cs-search__close">
-                                    <i class="ri-close-line"></i>
-                                </button>
+                                       id="search" type="search" value="" name="s" placeholder="Enter keyword">
+                                <button class="cs-search__close"><i class="cs-icon cs-icon-x"></i></button>
                             </div>
                         </form>
                     </div>
                 </div>
+                <div class="cs-search-live-result-container">
+                    <div aria-expanded="true" class="searchwp-live-search-results searchwp-live-search-results-showing"
+                         id="searchwp_live_search_results_633d1a9439714" role="listbox" tabindex="0"
+                         style="left: 985.5px; top: 125px; width: 270px; display: none">
 
-                <div class="cs-search-live-result-container"></div>
-
-
+                    </div>
+                </div>
                 <div class="cs-header__inner cs-header__inner-mobile">
-                    <div class="cs-header__col cs-col-left">
-						<span class="cs-header__offcanvas-toggle " role="button">
-					<span></span>
-				</span>
-                    </div>
+                    <div class="cs-header__col cs-col-left"><span class="cs-header__offcanvas-toggle "
+                                                                  role="button"> <span></span> </span></div>
                     <div class="cs-header__col cs-col-center">
-                        <div class="cs-logo">
-                            <a class="cs-header__logo cs-logo-default " href="{% url 'home' %}">
-                                Bitshub</a>
-
-                            <a class="cs-header__logo cs-logo-dark " href="{% url 'home' %}">
-                                Bitshub</a>
-                        </div>
+                        <div class="cs-logo"><a class="cs-header__logo cs-logo-default "
+                                                href="{% url 'home' %}">Bitshub</a> <a
+                                class="cs-header__logo cs-logo-dark " href="{% url 'home' %}"> Bitshub</a></div>
                     </div>
-                    <div class="cs-header__col cs-col-right">
-				<span role="button"
-                      class="cs-header__scheme-toggle cs-header__scheme-toggle-mobile cs-site-scheme-toggle">
-			<i class="cs-header__scheme-toggle-icon cs-icon cs-icon-sun"></i>
-			<i class="cs-header__scheme-toggle-icon cs-icon cs-icon-moon"></i>
-		</span>
-                        <span class="cs-header__search-toggle" role="button">
-			<i class="cs-icon cs-icon-search"></i>
-		</span>
-                    </div>
+                    <div class="cs-header__col cs-col-right"><span role="button"
+                                                                   class="cs-header__scheme-toggle cs-header__scheme-toggle-mobile cs-site-scheme-toggle"> <i
+                            class="cs-header__scheme-toggle-icon cs-icon cs-icon-sun"></i> <i
+                            class="cs-header__scheme-toggle-icon cs-icon cs-icon-moon"></i> </span> <span
+                            class="cs-header__search-toggle" role="button"> <i
+                            class="cs-icon cs-icon-search"></i> </span></div>
                 </div>
             </div>
             <div class="cs-search" data-scheme="default">
@@ -358,157 +327,24 @@
                     <form role="search" method="get" class="cs-search__nav-form"
                           action="/static/">
                         <div class="cs-search__group">
-                            <button class="cs-search__submit">
-                                <i class="cs-icon cs-icon-search"></i>
-                            </button>
-
+                            <button class="cs-search__submit"><i class="cs-icon cs-icon-search"></i></button>
                             <input data-swpparentel=".cs-header .cs-search-live-result" required
-                                   class="cs-search__input" data-swplive="true" type="search" value="" name="s"
+                                   class="cs-search__input" id="s" data-swplive="true" type="search" value="" name="s"
                                    placeholder="Enter keyword">
-
-                            <button class="cs-search__close">
-                                <i class="cs-icon cs-icon-x"></i>
-                            </button>
+                            <button class="cs-search__close"><i class="cs-icon cs-icon-x"></i></button>
                         </div>
                     </form>
-
                     <div class="cs-search__content">
                         <div class="cs-search__posts-wrapper">
-                            <h5 class="cs-section-heading cnvs-block-section-heading is-style-cnvs-block-section-heading-default halignleft  ">
-                                <span class="cnvs-section-title"><span><span
-                                        class="cs-section-subheadings">Hand-Picked</span> Top-Read Stories</span></span>
-                            </h5>
-                            <div class="cs-search__posts">
-                                <article
-                                        class="post-261 post type-post status-publish format-standard has-post-thumbnail category-gallery tag-art tag-fashion tag-lifestyle tag-music tag-style cs-entry cs-video-wrap">
-                                    <div class="cs-entry__outer">
-                                        <div class="cs-entry__inner cs-entry__thumbnail cs-entry__overlay cs-overlay-ratio cs-ratio-square"
-                                             data-scheme="inverse">
-                                            <div class="cs-overlay-background cs-overlay-transparent">
-                                                <img width="110" height="110"
-                                                     src="/static/wp-content/uploads/sites/21/demo-image-00015-80x80/"
-                                                     class="attachment-csco-small size-csco-small pk-lqip pk-lazyload wp-post-image"
-                                                     alt="" loading="lazy" data-pk-sizes="auto"
-                                                     data-ls-sizes="(max-width: 110px) 100vw, 110px"
-                                                     data-pk-src="/static/wp-content/uploads/sites/21/demo-image-00015-110x110/"
-                                                     data-pk-srcset="/static/wp-content/uploads/sites/21/demo-image-00015-110x110/ 110w, /static/wp-content/uploads/sites/21/demo-image-00015-150x150/ 150w, /static/wp-content/uploads/sites/21/demo-image-00015-80x80/ 80w, /static/wp-content/uploads/sites/21/demo-image-00015-600x600/ 600w, /static/wp-content/uploads/sites/21/demo-image-00015-100x100/ 100w, /static/wp-content/uploads/sites/21/demo-image-00015-160x160/ 160w, /static/wp-content/uploads/sites/21/demo-image-00015-220x220/ 220w, /static/wp-content/uploads/sites/21/demo-image-00015-1200x1200/ 1200w, /static/wp-content/uploads/sites/21/demo-image-00015-200x200/ 200w, /static/wp-content/uploads/sites/21/demo-image-00015-300x300/ 300w"/>
-                                            </div>
-
-                                            <a href="/static/2020/02/27/best-tech-accessories-10-essentials-this-year/"
-                                               class="cs-overlay-link"></a>
-                                        </div>
-
-                                        <div class="cs-entry__inner cs-entry__content">
-                                            <h6 class="cs-entry__title"><a
-                                                    href="/static/2020/02/27/best-tech-accessories-10-essentials-this-year/">Best
-                                                Tech &#038; Accessories: 10 Essentials this Year</a></h6>
-                                            <div class="cs-entry__post-meta">
-                                                <div class="cs-meta-views"><span class="cs-meta-icon"><i
-                                                        class="cs-icon cs-icon-bar-chart"></i></span>1.6K views
-                                                </div>
-                                                <div class="cs-meta-shares">
-                                                    <div class="cs-meta-share-total">
-                                                        <div class="cs-meta-icon"><i class="cs-icon cs-icon-share"></i>
-                                                        </div>
-                                                        <div class="cs-total-number">
-                                                            1K shares
-                                                        </div>
-                                                    </div>
-                                                    <div class="cs-meta-share-links" data-scheme="default">
-                                                        <div class="pk-share-buttons-wrap pk-share-buttons-layout-simple pk-share-buttons-scheme-simple-light pk-share-buttons-has-counts pk-share-buttons-post-meta pk-share-buttons-mode-cached"
-                                                             data-post-id="261"
-                                                             data-share-url="/static/2020/02/27/best-tech-accessories-10-essentials-this-year/">
-
-
-                                                            <div class="pk-share-buttons-items">
-
-                                                                <div class="pk-share-buttons-item pk-share-buttons-facebook pk-share-buttons-item-count"
-                                                                     data-id="facebook">
-
-                                                                    <a href="https://www.facebook.com/sharer.php?u=/static/2020/02/27/best-tech-accessories-10-essentials-this-year/"
-                                                                       class="pk-share-buttons-link" target="_blank">
-
-                                                                        <i class="pk-icon pk-icon-facebook"></i>
-
-
-                                                                        <span class="pk-share-buttons-count pk-font-secondary">482</span>
-                                                                    </a>
-
-
-                                                                </div>
-                                                                <div class="pk-share-buttons-item pk-share-buttons-twitter pk-share-buttons-no-count"
-                                                                     data-id="twitter">
-
-                                                                    <a href="https://twitter.com/share?&text=Best%20Tech%20%26%20Accessories%3A%2010%20Essentials%20this%20Year&via=envato&url=/static/2020/02/27/best-tech-accessories-10-essentials-this-year/"
-                                                                       class="pk-share-buttons-link" target="_blank">
-
-                                                                        <i class="pk-share-buttons-icon pk-icon pk-icon-twitter"></i>
-
-
-                                                                        <span class="pk-share-buttons-count pk-font-secondary">0</span>
-                                                                    </a>
-
-
-                                                                </div>
-                                                                <div class="pk-share-buttons-item pk-share-buttons-pinterest pk-share-buttons-item-count"
-                                                                     data-id="pinterest">
-
-                                                                    <a href="https://pinterest.com/pin/create/bookmarklet/?url=/static/2020/02/27/best-tech-accessories-10-essentials-this-year/&media=/static/wp-content/uploads/sites/21/demo-image-00015-819x1024/"
-                                                                       class="pk-share-buttons-link" target="_blank">
-
-                                                                        <i class="ri-pinterest-fill"></i>
-
-
-                                                                        <span class="pk-share-buttons-count pk-font-secondary">581</span>
-                                                                    </a>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
                         </div>
-
-                        <div class="cs-search__tags-wrapper">
-                            <h5 class="cs-section-heading cnvs-block-section-heading is-style-cnvs-block-section-heading-default halignleft  ">
-                                <span class="cnvs-section-title"><span><span
-                                        class="cs-section-subheadings">Trending</span> Tags</span></span></h5>
-                            <div class="cs-search__tags">
-                                <ul>
-                                    <li>
-                                        <a href="/static/tag/style/" rel="tag">
-                                            style </a>
-                                    </li>
-                                    <li>
-                                        <a href="/static/tag/music/" rel="tag">
-                                            music </a>
-                                    </li>
-                                    <li>
-                                        <a href="/static/tag/lifestyle/" rel="tag">
-                                            lifestyle </a>
-                                    </li>
-                                    <li>
-                                        <a href="/static/tag/fashion/" rel="tag">
-                                            fashion </a>
-                                    </li>
-                                    <li>
-                                        <a href="/static/tag/art/" rel="tag">
-                                            art </a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="cs-search-live-result">
+ <div aria-expanded="true" class="searchwp-live-search-results searchwp-live-search-results-showing"
+                         id="searchwp_live_search_results_desktop" role="listbox" tabindex="0"
+                         style="left: 985.5px; top: 125px; width: 270px; display: none">
+                    </div>
                         </div>
-
-                        <div class="cs-search-live-result"></div>
                     </div>
                 </div>
-            </div>
         </header>
 
 

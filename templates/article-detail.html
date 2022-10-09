@@ -289,9 +289,12 @@
                         </form>
                     </div>
                 </div>
-                <div class="cs-search-live-result-container-l">
+                <div class="cs-search-live-result-container">
+                    <div aria-expanded="true" class="searchwp-live-search-results searchwp-live-search-results-showing"
+                         id="searchwp_live_search_results_633d1a9439714" role="listbox" tabindex="0"
+                         style="left: 985.5px; top: 125px; width: 270px; display: none">
 
-
+                    </div>
                 </div>
                 <div class="cs-header__inner cs-header__inner-mobile">
                     <div class="cs-header__col cs-col-left"><span class="cs-header__offcanvas-toggle "
@@ -311,8 +314,7 @@
             </div>
             <div class="cs-search" data-scheme="default">
                 <div class="cs-container">
-                    <form role="search" method="get" class="cs-search__nav-form"
-                          action="/static/">
+                    <form role="search" method="get" class="cs-search__nav-form">
                         <div class="cs-search__group">
                             <button class="cs-search__submit"><i class="cs-icon cs-icon-search"></i></button>
                             <input data-swpparentel=".cs-header .cs-search-live-result" required
@@ -324,10 +326,14 @@
                     <div class="cs-search__content">
                         <div class="cs-search__posts-wrapper">
                         </div>
-                        <div class="cs-search-live-result"></div>
+                        <div class="cs-search-live-result">
+ <div aria-expanded="true" class="searchwp-live-search-results searchwp-live-search-results-showing"
+                          role="listbox" tabindex="0"
+                         style="left: 985.5px; top: 125px; width: 270px; display: none">
+                    </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </header>
 
         <main id="main" class="cs-site-primary">
@@ -398,7 +404,8 @@
                                                 </div>
                                             </div>
                                             <div class="cs-meta-reading-time"><span class="cs-meta-icon"><i
-                                                    class="cs-icon cs-icon-clock"></i></span>{{ post.estimate_reading_time }} minute read
+                                                    class="cs-icon cs-icon-clock"></i></span>{{ post.estimate_reading_time }}
+                                                minute read
                                             </div>
                                         </div>
                                         <h1 class="cs-entry__title"><span>{{ post.title|title }}</span>
@@ -558,7 +565,7 @@
                                                         href="{% url 'article_detail' post.slug %}/#respond"
                                                         style="display:none;">Cancel reply</a></small></span></span>
                                             </h5>
-                                                <form action="."
+                                                <form action="/article/view/{{ post.slug }}"
                                                       method="post" id="comment-form" class="comment-form" novalidate><p
                                                         class="comment-notes">
                                                     {% csrf_token %}
@@ -671,6 +678,7 @@
                                                                                                 <a
                                                                                                         href="https://www.facebook.com/sharer.php?u=
 
+
                                                                                                                 {{ current_site }}{% url 'article_detail'  item.slug %}"
                                                                                                         class="pk-share-buttons-link share-link"
                                                                                                         data-id="{{ item.id }}"
@@ -685,6 +693,7 @@
                                                                                                  data-id="twitter"><a
                                                                                                     href="https://twitter.com/share?&text={{ item.title|title }}&url=
 
+
                                                                                                             {{ current_site }}{% url 'article_detail'  item.slug %}"
                                                                                                     class="pk-share-buttons-link share-link"
                                                                                                     data-id="{{ item.id }}"
@@ -698,6 +707,7 @@
                                                                                             <div class="pk-share-buttons-item pk-share-buttons-pinterest pk-share-buttons-item-count"
                                                                                                  data-id="pinterest"><a
                                                                                                     href="https://pinterest.com/pin/create/bookmarklet/?url=
+
 
                                                                                                             {{ current_site }}{% url 'article_detail'  item.slug %}&media={{ item.cover_photo.cdn_url }}-/smart_resize/819x1024/"
                                                                                                     class="pk-share-buttons-link share-link"
@@ -1289,35 +1299,25 @@
                 {{ shares.mail }}{% endif %}</span> </a></div>
         </div>
     </div>
-
 </div>
 <div id="fb-root"></div>
-<script>
-        $('.cs-search__input').keyup(function (e) {
-            $.ajax({
-                type: 'POST',
-                url: '/livesearch/',
-                dataType: 'json',
-                data: {
-                    'search': $(this).val()
-                },
-                success: (data) => {
-                    $('.cs-search-live-result').append(
-                    )
-                }
-            })
-        })
-</script>
+
 <script src="/static/js/script.js"></script>
-<script type="text/javascript">
+<script>
+
     let cookie = Cookies.get('cookie')
     let par = cookie ? JSON.parse(cookie.split('\\').join('').split('054').join(',')) : null;
-    if (par){
+    if (par) {
+        fill_cookie()
+    }
+
+    function fill_cookie() {
         document.getElementById('name').value = par['name'];
         document.getElementById('email').value = par.email
         document.getElementById('url').value = par.url
         document.getElementById('cookies').checked = true
     }
+
     document.getElementById("comment-form").addEventListener("submit", function (event) {
         event.preventDefault();
         console.log($(this).serialize())
@@ -1331,8 +1331,8 @@
                 $('.cs-entry__comments-collapse').show();
                 $('.cs-entry__comments-show').remove();
                 console.log(document.getElementById('content').value)
-                if (!document.getElementById('respond')){
-                   document.querySelector('.comment-section').insertAdjacentHTML('afterend', `<div id="respond" class="comment-respond"><h5 class="cs-section-heading cnvs-block-section-heading is-style-cnvs-block-section-heading-default halignleft  ">
+                if (!document.getElementById('respond')) {
+                    document.querySelector('.comment-section').insertAdjacentHTML('afterend', `<div id="respond" class="comment-respond"><h5 class="cs-section-heading cnvs-block-section-heading is-style-cnvs-block-section-heading-default halignleft  ">
                                                 <span class="cnvs-section-title"><span>Leave a Comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="/article/view/introduction-to-django/#respond" style="display:none;">Cancel reply</a></small></span></span>
                                             </h5>
                                                 <form action="." method="post" id="comment-form" class="comment-form" novalidate=""><p class="comment-notes">
@@ -1351,40 +1351,12 @@
                                                     <p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="" id="comment_post_ID"> <input type="hidden" name="comment_parent" id="comment_parent" value="0"></p></form>
                                             </div>`)
                 }
-                if (!par){
-                    document.getElementById('name').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('url').value = '';
+                if (par){
+                    fill_cookie()
                 }
             },
         })
     });
-</script>
-<script type="text/javascript">
-    var Sharelink = document.getElementsByClassName('share-link')
-    var i = 0;
-    for (i = 0; i < Sharelink.length; i++) {
-        Sharelink[i].addEventListener('click', function () {
-            var Id = this.dataset.id
-            var name = this.dataset.name
-            UpdateShares(Id, name)
-        })
-    }
-
-    function UpdateShares(Id, name) {
-        var url = '/share-link/'
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Type': 'application/json'
-            },
-            body: JSON.stringify({'Id': Id, 'name': name})
-
-        })
-            .then((data) => {
-                location.reload()
-            })
-    }
 </script>
 </body>
 </html>

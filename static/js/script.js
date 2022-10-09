@@ -1,4 +1,3 @@
-
 /*! jQuery Migrate v3.3.2 | (c) OpenJS Foundation and other contributors | jquery.org/license */
 "undefined" == typeof jQuery.migrateMute && (jQuery.migrateMute = !0), function (t) {
     "use strict";
@@ -5992,7 +5991,7 @@ window.addComment = function (v) {
         if (r && (I = g(b.cancelReplyId), C = g(b.commentFormId), I)) {
             I.addEventListener("touchstart", l), I.addEventListener("click", l);
             var t = function (e) {
-                if ((e.metaKey || e.ctrlKey) && 13 === e.keyCode) return C.removeEventListener("keydown", t), e.preventDefault(), C.submit.click(), !1
+                if ((e.metaKey || e.ctrlKey) && 13 === e.keyCode) return C.removeEventListener("keydown", t), e.preventDefault(), !1
             };
             C && C.addEventListener("keydown", t);
             for (var n, d = function (e) {
@@ -6035,9 +6034,7 @@ window.addComment = function (v) {
             var r, l, a, m, c, s = g(b.parentIdFieldId), y = g(b.postIdFieldId),
                 p = (c = g(b.commentReplyTitleId)) && c.firstChild, u = p && p.nextSibling;
             if (i && h && s) {
-                void 0 === o && (o = p && p.textContent), m = h, e = b.temporaryFormId, n = g(e), c = (c = g(b.commentReplyTitleId)) ? c.firstChild.textContent : "", n || ((n = E.createElement("div")).id = e, n.style.display = "none", n.textContent = c, m.parentNode.insertBefore(n, m)), d && y && (y.value = d), s.value = t, I.style.display = "", i.parentNode.insertBefore(h, i.nextSibling), p && p.nodeType === Node.TEXT_NODE && (u && "A" === u.nodeName && u.id !== b.cancelReplyId && (u.style.display = "none"), p.textContent = o), I.onclick = function () {
-                    return !1
-                };
+                void 0 === o && (o = p && p.textContent), m = h, e = b.temporaryFormId, n = g(e), c = (c = g(b.commentReplyTitleId)) ? c.firstChild.textContent : "", n || ((n = E.createElement("div")).id = e, n.style.display = "none", n.textContent = c, m.parentNode.insertBefore(n, m)), d && y && (y.value = d), s.value = t, I.style.display = "", i.parentNode.insertBefore(h, i.nextSibling), p && p.nodeType === Node.TEXT_NODE && (u && "A" === u.nodeName && u.id !== b.cancelReplyId && (u.style.display = "none"), p.textContent = o);
                 try {
                     for (var f = 0; f < C.elements.length; f++) if (r = C.elements[f], l = !1, "getComputedStyle" in v ? a = v.getComputedStyle(r) : E.documentElement.currentStyle && (a = r.currentStyle), (r.offsetWidth <= 0 && r.offsetHeight <= 0 || "hidden" === a.visibility) && (l = !0), "hidden" !== r.type && !r.disabled && !l) {
                         r.focus();
@@ -6079,44 +6076,82 @@ window.addComment = function (v) {
         }
     }
 }(window, document);
-"use strict";
-(function ($) {
-    $(window).on('load', function () {
-        var powerkitSLinksIds = [];
-        var powerkitSLinksRestBox = $('.pk-social-links-mode-rest');
-        $(powerkitSLinksRestBox).each(function (index, wrap) {
-            if (!$(wrap).hasClass('pk-social-links-counts-disabled')) {
-                $(wrap).find('.pk-social-links-item').each(function () {
-                    if ($(this).attr('data-id').length > 0) {
-                        powerkitSLinksIds.push($(this).attr('data-id'));
-                    }
-                });
-            }
-        });
-        var powerkitSLinksData = {};
-        if (powerkitSLinksIds.length > 0) {
-            powerkitSLinksData = {'ids': powerkitSLinksIds.join()};
-        }
-        if (!Object.entries(powerkitSLinksData).length) {
-
-        }
-    });
-})
-(jQuery);
 
 function getToken(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
             }
-            return cookieValue;
         }
+    }
+    return cookieValue;
+}
 
+!(function () {
+       let k = window.innerWidth <= 1020 ? 'cs-search-live-result' : 'cs-search-live-result-container',
+        child = document.querySelector(`.${k}`).firstElementChild;
+        // document.querySelectorAll('.cs-search__input').forEach(input => input.addEventListener('keyup', (e) => {
+        //     child.style.display = input.value ? 'block' : 'none'
+        // }))
+        $('.cs-search__input').keyup(function (e) {
+            let x='';
+            $.ajax({
+                type: 'POST',
+                url: '/livesearch/',
+                dataType: 'json',
+                data: {
+                    'search': $(this).val()
+                },
+                success: (data) => {
+                    for (const article in data) {
+                        if (data.hasOwnProperty(article)){
+                           let post = data[article];
+                        x += `<div class="searchwp-live-search-result" role="option" id="" aria-selected="false">
+			<a href="/article/view/${post.slug}">
+				<img width="110" height="110" src="https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-110x110.jpg" class="attachment-csco-small size-csco-small wp-post-image" alt="" loading="lazy" srcset="https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-110x110.jpg 110w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-150x150.jpg 150w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-80x80.jpg 80w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-600x600.jpg 600w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-100x100.jpg 100w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-160x160.jpg 160w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-220x220.jpg 220w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-1200x1200.jpg 1200w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-200x200.jpg 200w, https://networkertheme.com/gearbox/wp-content/uploads/sites/21/demo-image-00015-300x300.jpg 300w" sizes="(max-width: 110px) 100vw, 110px">				<span>
+					<span class="h6">${post.title}</span>
+					<div class="cs-entry__post-meta"><div class="cs-meta-date">${post.publish_date}</div></div>				</span>
+				<small>Post</small>
+			</a>
+		</div>
+	` }}
+                   if (x){
+                       child.style.display = 'block';
+                       child.innerHTML = x
+                   }else{
+                       child.style.display = 'none'
+                   }
+                }
+            })
+        })
+    var Sharelink = document.getElementsByClassName('share-link')
+    var i = 0;
+    for (i = 0; i < Sharelink.length; i++) {
+        Sharelink[i].addEventListener('click', function () {
+            var Id = this.dataset.id
+            var name = this.dataset.name
+            UpdateShares(Id, name)
+        })
+    }
+
+    function UpdateShares(Id, name) {
+        var url = '/share-link/'
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Type': 'application/json'
+            },
+            body: JSON.stringify({'Id': Id, 'name': name})
+
+        })
+            .then((data) => {
+                location.reload()
+            })
+    }
+})()

@@ -92,9 +92,14 @@ def post_details(request, slug):
 
 def live_search(request):
     search = request.POST.get('search')
-    searched = Article.published.filter(title__icontains=search) | Article.published.filter(snippet__icontains=search)
-    data = searched.values()
-    return JsonResponse(list(data), safe=False)
+    data = []
+    if search != '':
+        searched = Article.published.filter(title__icontains=search) | Article.published.filter(snippet__icontains=search)
+        for post in searched:
+            post_json = {'title': post.title, 'publish_date':post.publish_date.strftime('%B %d, %Y'), 'slug':post.slug}
+            data.append(post_json)
+        return JsonResponse(list(data), safe=False)
+    return JsonResponse({})
 
 
 def count_shares(request):

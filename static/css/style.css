@@ -29240,6 +29240,9 @@ body {
     }
 }
 
+    .cs-search {
+        display:none;
+    }
 .cs-header__inner-desktop {
     display: none
 }
