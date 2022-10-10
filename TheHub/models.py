@@ -37,8 +37,8 @@ class Article(models.Model):
     title = models.CharField(max_length=250)
     Author = models.ForeignKey(User, related_name='author', on_delete=models.PROTECT)
     body = HTMLField()
-    from cloudinary.models import CloudinaryField
-    cover_photo = CloudinaryField(blank=True, null=True)
+    from pyuploadcare.dj.models import ImageField
+    cover_photo = ImageField(blank=True, null=True)
     cover_video = models.URLField(blank=True)
     video_id = models.CharField(max_length=20, blank=True)
     slug = models.SlugField(max_length=100, unique=True)

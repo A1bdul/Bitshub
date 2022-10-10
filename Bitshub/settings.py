@@ -46,11 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'TheHub.apps.ThehubConfig',
+    'pyuploadcare',
     'tinymce',
     'validate_email',
     'filebrowser',
     'grappelli',
-    'cloudinary',
     'cloudinary_storage'
 ]
 
@@ -139,6 +139,7 @@ STATICFILLES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
