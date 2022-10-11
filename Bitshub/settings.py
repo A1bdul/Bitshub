@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'tinymce',
     'filebrowser',
     'grappelli',
-    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
