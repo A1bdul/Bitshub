@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'TheHub.apps.ThehubConfig',
     'pyuploadcare',
     'tinymce',
-    'validate_email',
     'filebrowser',
     'grappelli',
     'cloudinary_storage'
