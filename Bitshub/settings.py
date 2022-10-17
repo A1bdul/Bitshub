@@ -48,10 +48,8 @@ INSTALLED_APPS = [
     'TheHub.apps.ThehubConfig',
     'pyuploadcare',
     'tinymce',
-    'validate_email',
     'filebrowser',
     'grappelli',
-    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -138,7 +136,6 @@ STATICFILLES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'  # or any prefix you choose
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Default primary key field type
