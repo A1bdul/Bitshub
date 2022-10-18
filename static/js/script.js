@@ -6112,9 +6112,10 @@ function getToken(name) {
                     for (const article in data) {
                         if (data.hasOwnProperty(article)){
                            let post = data[article];
+                           console.log(post)
                         x += `<div class="searchwp-live-search-result" role="option" id="" aria-selected="false">
 			<a href="/article/view/${post.slug}">
-				<img width="110" height="110" src="${post.photo}-/smart_resize/110x110.jpg" class="attachment-csco-small size-csco-small wp-post-image" alt="" loading="lazy" srcset="${post.photo}-/smart_resize/110x110.jpg 110w, ${post.photo}-/smart_resize/150x150.jpg 150w, ${post.photo}-/smart_resize/80x80.jpg 80w, ${post.photo}-/smart_resize/600x600.jpg 600w, ${post.photo}-/smart_resize/100x100.jpg 100w, ${post.photo}-/smart_resize/160x160.jpg 160w, ${post.photo}-/smart_resize/220x220.jpg 220w, ${post.photo}-/smart_resize/1200x1200.jpg 1200w, ${post.photo}-/smart_resize/200x200.jpg 200w, ${post.photo}-/smart_resize/300x300.jpg 300w" sizes="(max-width: 110px) 100vw, 110px">				<span>
+				<img width="110" height="110" src="${post.photo}-/smart_resize/110x110/" class="attachment-csco-small size-csco-small wp-post-image" alt="" loading="lazy" srcset="${post.photo}-/smart_resize/110x110/ 110w, ${post.photo}-/smart_resize/150x150/ 150w, ${post.photo}-/smart_resize/80x80/ 80w, ${post.photo}-/smart_resize/600x600/ 600w, ${post.photo}-/smart_resize/100x100/ 100w, ${post.photo}-/smart_resize/160x160/ 160w, ${post.photo}-/smart_resize/220x220/ 220w, ${post.photo}-/smart_resize/1200x1200/ 1200w, ${post.photo}-/smart_resize/200x200/ 200w, ${post.photo}-/smart_resize/300x300/ 300w" sizes="(max-width: 110px) 100vw, 110px">				<span>
 					<span class="h6">${post.title}</span>
 					<div class="cs-entry__post-meta"><div class="cs-meta-date">${post.publish_date}</div></div>				</span>
 				<small>Post</small>
