@@ -98,7 +98,9 @@ def live_search(request):
             snippet__icontains=search)
         for post in searched:
             post_json = {'title': post.title, 'publish_date': post.publish_date.strftime('%B %d, %Y'),
-                         'slug': post.slug, 'photo': post.cover_photo.cdn_url}
+                         'slug': post.slug,}
+            if post.cover_photo:
+                post_json['photo'] = post.cover_photo.cdn_url
             data.append(post_json)
         return JsonResponse(list(data), safe=False)
     return JsonResponse({})
