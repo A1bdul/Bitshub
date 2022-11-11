@@ -4,13 +4,13 @@ from django.contrib import admin, messages
 from .models import *
 from django.utils.translation import ngettext as _
 
+
 # Register your models here.
 @admin.action(description='Publish these article')
 def get_published(modeladmin, request, queryset):
     updated = queryset.update(status='published')
     modeladmin.message_user(request, _('%d story was successfully published.',
-                                       '%d stories was successfully published.',updated) % updated, messages.SUCCESS )
-
+                                       '%d stories was successfully published.', updated) % updated, messages.SUCCESS)
 
 
 @admin.action(description='Remove published article')
@@ -31,7 +31,7 @@ class ArticleAdmin(admin.ModelAdmin):
         from django.utils.text import slugify
         obj.slug = slugify(obj.title)
         obj.title = obj.title.title()
-        return super().save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
 
 
 admin.site.register(Article, ArticleAdmin)
